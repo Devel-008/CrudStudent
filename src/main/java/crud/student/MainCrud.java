@@ -1,0 +1,106 @@
+package crud.student;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class MainCrud {
+    public static void main(String[] args) {
+
+        InsertStudent in = new InsertStudent();
+        ReadStudent read = new ReadStudent();
+        DeleteStudent de = new DeleteStudent();
+        Update up = new Update();
+        Scanner sc = new Scanner(System.in);
+        FileReading fileReading = new FileReading();
+
+        String url = "jdbc:postgresql://localhost:5432/reportcard";
+        String username = "postgres";
+        String password = "isha@123";
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection connect = null;
+        try {
+            connect = DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assert connect != null;
+            if (connect.isClosed()) {
+                System.out.println("Not Connected");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        do {
+            System.out.println("1] Press i to INSERT \n2] Press d to DELETE \n3]Press s to READ \n4]Press u to UPDATE \n5]Press f to insert data from any File you want \n6]Press any other key to exit");
+            String c = sc.nextLine();
+            switch (c) {
+                case "i" -> {
+                    Student student = new Student();
+                    try {
+                        in.insert();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "d" -> {
+                    System.out.println("Enter the roll no to delete: ");
+                    int roll = sc.nextInt();
+                    try {
+                        if(de.delete(connect, roll)){
+                            System.out.println("Entries deleted \n");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "s" -> {
+                    try {
+                        read.select();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "u" -> {
+                    try {
+                        up.updateRecord(connect,sc);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "f" -> {
+                    try {
+                        Student.readData(connect);
+                    }catch (Exception e){
+                        System.out.println("ERROR");
+                    }
+                }
+                default -> {
+                    System.out.println("Enter Correct Option!!!!");
+                    System.out.println("Do you want to continue:= Press any key or else Press n to exit!!");
+                    String n = sc.nextLine();
+                    if (n.startsWith("n")) {
+                        System.out.println("Process Successful");
+                        try {
+                            connect.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        System.exit(0);
+                    }
+                }
+            }
+
+        } while (true);
+
+    }
+
+}
