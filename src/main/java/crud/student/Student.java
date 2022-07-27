@@ -20,21 +20,6 @@ public class Student {
     private static float social;
     private static float percentage;
 
-   /* public Student(int rollno, String name, String fathername, String address, String dob, float english, float hindi, float maths, float science, float social, float percentage) {
-        this.rollno = rollno;
-        this.name = name;
-        this.fathername = fathername;
-        this.address = address;
-        this.dob = dob;
-        this.english = english;
-        this.hindi = hindi;
-        this.maths = maths;
-        this.science = science;
-        this.social = social;
-        this.percentage = percentage;
-
-    }*/
-
     public int getRollno() {
         return rollno;
     }
@@ -123,8 +108,8 @@ public class Student {
         Student.percentage = percentage;
     }
 
-    public static void readData(Connection connect) {
-        Scanner sc = new Scanner(System.in);
+    //File Insert
+    public static void readData(Connection connect, Scanner sc) {
         System.out.println("Enter the Address of file:=");
         String filePath = sc.nextLine();
 
@@ -141,11 +126,9 @@ public class Student {
 
                 try (Scanner data = new Scanner(line)) {
 
-
                     if (data.hasNextInt()) {
                         rollno = data.nextInt();
                     }
-
                     while (!data.hasNextInt()) {
                         name += data.next();
                         fathername += data.next();
@@ -173,10 +156,8 @@ public class Student {
                     if (data.hasNextInt()) {
                         social = data.nextFloat();
                     }
-
                     float total = english + hindi + maths + science + social;
                     percentage = (total * 100) / 500;
-
                 }
                 saveData(connect);
                 //System.out.println(empName + "\t" + empSalary + "\t" + empDeptId);
@@ -186,28 +167,24 @@ public class Student {
         }
     }
 
-
     private static void saveData(Connection connect) {
-        try {
+        try (PreparedStatement preparedStatement = connect.prepareStatement("insert into student values(?,?,?,?,?,?,?,?,?,?,?)")) {
+            preparedStatement.setInt(1, rollno);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, fathername);
+            preparedStatement.setString(4, address);
+            preparedStatement.setString(5, dob);
+            preparedStatement.setFloat(6, english);
+            preparedStatement.setFloat(7, hindi);
+            preparedStatement.setFloat(8, maths);
+            preparedStatement.setFloat(9, science);
+            preparedStatement.setFloat(10, social);
+            preparedStatement.setFloat(11, percentage);
 
-            try (PreparedStatement preparedStatement = connect.prepareStatement("insert into student values(?,?,?,?,?,?,?,?,?,?,?)")) {
-                preparedStatement.setInt(1, rollno);
-                preparedStatement.setString(2, name);
-                preparedStatement.setString(3, fathername);
-                preparedStatement.setString(4, address);
-                preparedStatement.setString(5, dob);
-                preparedStatement.setFloat(6, english);
-                preparedStatement.setFloat(7, hindi);
-                preparedStatement.setFloat(8, maths);
-                preparedStatement.setFloat(9, science);
-                preparedStatement.setFloat(10, social);
-                preparedStatement.setFloat(11, percentage);
+            preparedStatement.executeUpdate();
+            System.out.println("Data Saved!!!");
+            connect.close();
 
-                preparedStatement.executeUpdate();
-                System.out.println("Data Saved!!!");
-                connect.close();
-
-            }
         } catch (SQLException e) {
             System.out.println(e);
         }

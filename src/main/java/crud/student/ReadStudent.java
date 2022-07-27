@@ -1,30 +1,18 @@
 package crud.student;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
 public class ReadStudent {
-    String url = "jdbc:postgresql://localhost:5432/reportcard";
-    String username = "postgres";
-    String password = "isha@123";
-    Scanner sc = new Scanner(System.in);
 
-    public void select() throws Exception {
+    public void select(Connection connect, Scanner sc) {
         int count = 0;
-        Class.forName("org.postgresql.Driver");
-        Connection connect = DriverManager.getConnection(url, username, password);
-
-        if (connect.isClosed()) {
-            System.out.println("Not Connected");
-        } else {
+        try {
             Statement s1 = connect.createStatement();
             String se = "select * from student";
             ResultSet rs = s1.executeQuery(se);
-
-
             while (rs.next()) {
                 System.out.print("Roll-No:" + rs.getInt("rollno") + " ");
                 System.out.print(", Name: " + rs.getString("fullname") + " ");
@@ -38,15 +26,18 @@ public class ReadStudent {
                 System.out.print(", Percentage: " + rs.getFloat("percentage") + " ");
                 System.out.println(" ");
                 count++;
-
             }
             if (count <= 0) {
                 System.out.println("No data available");
             }
-
-
+            rs.close();
+            s1.close();
+           connect.close();
+        } catch (Exception e) {
+            System.out.println("ERROR:=" + e);
         }
     }
-
-
 }
+
+
+

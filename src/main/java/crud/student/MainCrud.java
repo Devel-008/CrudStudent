@@ -13,7 +13,7 @@ public class MainCrud {
         DeleteStudent de = new DeleteStudent();
         Update up = new Update();
         Scanner sc = new Scanner(System.in);
-        FileReading fileReading = new FileReading();
+        Student student = new Student();
 
         String url = "jdbc:postgresql://localhost:5432/reportcard";
         String username = "postgres";
@@ -44,18 +44,43 @@ public class MainCrud {
             String c = sc.nextLine();
             switch (c) {
                 case "i" -> {
-                    Student student = new Student();
+
                     try {
-                        in.insert();
+                        System.out.println("Enter Full name:= ");
+                        String name = sc.nextLine();
+                        if (name == null || name.isEmpty()) {
+                            throw new IllegalArgumentException("Name is required.");
+                        }
+                        System.out.println("Enter Father name:= ");
+                        String Fathername = sc.nextLine();
+                        System.out.println("Enter Address:= ");
+                        String add = sc.nextLine();
+                        System.out.println("Enter Date of Birth := ");
+                        String dob = sc.nextLine();
+                        System.out.println("Enter English marks out 100 := ");
+                        float eng = sc.nextFloat();
+                        System.out.println("Enter Hindi marks out 100:= ");
+                        float hindi = sc.nextFloat();
+                        System.out.println("Enter Maths Marks out 100 := ");
+                        float maths = sc.nextFloat();
+                        System.out.println("Enter Science Marks out 100:= ");
+                        float sci = sc.nextFloat();
+                        System.out.println("Enter Social marks out 100 := ");
+                        float sst = sc.nextFloat();
+                        float total = eng + sci + maths + hindi + sst;
+                        float per = (total * 100) / 500;
+                        System.out.println("Enter Roll Number:= ");
+                        int rollNo = sc.nextInt();
+                        in.insert(connect, sc, rollNo, name, Fathername, add, dob, eng, hindi, maths, sci, sst, per);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        System.out.println("ERROR:=" + e);
                     }
                 }
                 case "d" -> {
                     System.out.println("Enter the roll no to delete: ");
                     int roll = sc.nextInt();
                     try {
-                        if(de.delete(connect, roll)){
+                        if (de.delete(connect, roll)) {
                             System.out.println("Entries deleted \n");
                         }
                     } catch (Exception e) {
@@ -64,31 +89,31 @@ public class MainCrud {
                 }
                 case "s" -> {
                     try {
-                        read.select();
+                        read.select(connect, sc);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 case "u" -> {
                     try {
-                        up.updateRecord(connect,sc);
+                        up.updateRecord(connect, sc);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 case "f" -> {
                     try {
-                        Student.readData(connect);
-                    }catch (Exception e){
+                        Student.readData(connect, sc);
+                    } catch (Exception e) {
                         System.out.println("ERROR");
                     }
                 }
                 default -> {
-                    System.out.println("Enter Correct Option!!!!");
-                    System.out.println("Do you want to continue:= Press any key or else Press n to exit!!");
+                    System.out.println("\nEnter Correct Option!!!!");
+                    System.out.println("\nDo you want to continue:= Press any key or else Press n to exit!!");
                     String n = sc.nextLine();
                     if (n.startsWith("n")) {
-                        System.out.println("Process Successful");
+                        System.out.println("\nProcess Successful");
                         try {
                             connect.close();
                         } catch (SQLException e) {

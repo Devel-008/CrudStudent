@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+
 import crudStudent.InsertStudent;
 import crudStudent.ReadStudent;
-=======
-import crud.student.InsertStudent;
-import crud.student.ReadStudent;
->>>>>>> 6f291f7 (Initial commit)
 
 import java.sql.*;
 import java.util.Scanner;
