@@ -3,8 +3,7 @@ package crud.student;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Update {
-
+public class UpdateDemo {
     public void updateRecord(Connection connect, Scanner sc) {
 
         System.out.println("Enter Admission number of student whose record you want to update:=");
@@ -102,5 +101,4 @@ public class Update {
         }
         return true;
     }
-
 }

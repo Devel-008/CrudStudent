@@ -13,7 +13,7 @@ public class MainCrud {
         DeleteStudent de = new DeleteStudent();
         Update up = new Update();
         Scanner sc = new Scanner(System.in);
-        Student student = new Student();
+        //Student student = new Student();
 
         String url = "jdbc:postgresql://localhost:5432/reportcard";
         String username = "postgres";
@@ -103,15 +103,18 @@ public class MainCrud {
                 }
                 case "f" -> {
                     try {
-                        Student.readData(connect, sc);
+                        FileRead.readData(connect, sc);
                     } catch (Exception e) {
                         System.out.println("ERROR");
                     }
                 }
                 default -> {
+
                     System.out.println("\nEnter Correct Option!!!!");
+
                     System.out.println("\nDo you want to continue:= Press any key or else Press n to exit!!");
                     String n = sc.nextLine();
+
                     if (n.startsWith("n")) {
                         System.out.println("\nProcess Successful");
                         try {
@@ -123,9 +126,6 @@ public class MainCrud {
                     }
                 }
             }
-
         } while (true);
-
     }
-
 }

@@ -7,11 +7,9 @@ import java.util.Scanner;
 public class InsertStudent {
     public static String sql = "insert into student (rollNo, FullName,FatherName, Address, dob, english, hindi, maths, science,  social,  percentage) values( ?,?,?,?,?,?,?,?,?,?,?)";
 
-    public boolean insert(Connection connect, Scanner sc, int rollNo, String name,
-                          String Fathername, String add, String dob, float eng, float hindi, float maths, float sci, float sst, float per) {
+    public boolean insert(Connection connect, Scanner sc, int rollNo, String name,String Fathername, String add, String dob, float eng, float hindi, float maths, float sci, float sst, float per) {
         try {
             PreparedStatement inset = connect.prepareStatement(sql);
-
             inset.setInt(1, rollNo);
             inset.setString(2, name);
             inset.setString(3, Fathername);
@@ -37,5 +35,3 @@ public class InsertStudent {
         }  return false;
     }
 }
-
-
