@@ -1,4 +1,4 @@
-package crud.student;
+package pracitce.student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

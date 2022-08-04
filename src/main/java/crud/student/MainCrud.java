@@ -6,14 +6,16 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class MainCrud {
+
     public static void main(String[] args) {
 
-        InsertStudent in = new InsertStudent();
+        InsertCheck in1 = new InsertCheck();
+        StudentCheck stu = new StudentCheck();
         ReadStudent read = new ReadStudent();
         DeleteStudent de = new DeleteStudent();
+        JsonToDatabase js = new JsonToDatabase();
         Update up = new Update();
         Scanner sc = new Scanner(System.in);
-        //Student student = new Student();
 
         String url = "jdbc:postgresql://localhost:5432/reportcard";
         String username = "postgres";
@@ -40,40 +42,15 @@ public class MainCrud {
             e.printStackTrace();
         }
         do {
-            System.out.println("1] Press i to INSERT \n2] Press d to DELETE \n3]Press s to READ \n4]Press u to UPDATE \n5]Press f to insert data from any File you want \n6]Press any other key to exit");
+            System.out.println("1] Press i to INSERT 2] Press d to DELETE 3]Press s to READ \n4]Press u to UPDATE 5]Press f to insert data from any File you want\n6]Press j to insert data from JSON File you want \n7]Press any other key to exit");
             String c = sc.nextLine();
             switch (c) {
                 case "i" -> {
-
                     try {
-                        System.out.println("Enter Full name:= ");
-                        String name = sc.nextLine();
-                        if (name == null || name.isEmpty()) {
-                            throw new IllegalArgumentException("Name is required.");
-                        }
-                        System.out.println("Enter Father name:= ");
-                        String Fathername = sc.nextLine();
-                        System.out.println("Enter Address:= ");
-                        String add = sc.nextLine();
-                        System.out.println("Enter Date of Birth := ");
-                        String dob = sc.nextLine();
-                        System.out.println("Enter English marks out 100 := ");
-                        float eng = sc.nextFloat();
-                        System.out.println("Enter Hindi marks out 100:= ");
-                        float hindi = sc.nextFloat();
-                        System.out.println("Enter Maths Marks out 100 := ");
-                        float maths = sc.nextFloat();
-                        System.out.println("Enter Science Marks out 100:= ");
-                        float sci = sc.nextFloat();
-                        System.out.println("Enter Social marks out 100 := ");
-                        float sst = sc.nextFloat();
-                        float total = eng + sci + maths + hindi + sst;
-                        float per = (total * 100) / 500;
-                        System.out.println("Enter Roll Number:= ");
-                        int rollNo = sc.nextInt();
-                        in.insert(connect, sc, rollNo, name, Fathername, add, dob, eng, hindi, maths, sci, sst, per);
-                    } catch (Exception e) {
-                        System.out.println("ERROR:=" + e);
+                        in1.insert(sc, stu);
+                        in1.insertData(connect, stu);
+                    }catch (Exception e){
+                        System.out.println("ERROR:="+e);
                     }
                 }
                 case "d" -> {
@@ -89,7 +66,7 @@ public class MainCrud {
                 }
                 case "s" -> {
                     try {
-                        read.select(connect, sc);
+                        read.select(connect);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -104,6 +81,13 @@ public class MainCrud {
                 case "f" -> {
                     try {
                         FileRead.readData(connect, sc);
+                    } catch (Exception e) {
+                        System.out.println("ERROR");
+                    }
+                }
+                case "j" -> {
+                    try {
+                        js.convertJson(connect,sc);
                     } catch (Exception e) {
                         System.out.println("ERROR");
                     }

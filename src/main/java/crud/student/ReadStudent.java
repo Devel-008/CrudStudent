@@ -3,11 +3,10 @@ package crud.student;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class ReadStudent {
 
-    public void select(Connection connect, Scanner sc) {
+    public void select(Connection connect) {
         int count = 0;
         try {
             Statement s1 = connect.createStatement();

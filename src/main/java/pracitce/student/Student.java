@@ -1,4 +1,4 @@
-package crud.student;
+package pracitce.student;
 
 public class Student {
     private static int rollno;

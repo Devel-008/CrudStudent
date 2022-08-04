@@ -1,6 +1,7 @@
 package crud.student;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import pracitce.student.Student;
 
 import java.io.File;
 import java.sql.*;
