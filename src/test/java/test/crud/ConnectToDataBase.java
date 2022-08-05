@@ -1,6 +1,5 @@
 package test.crud;
 
-
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
