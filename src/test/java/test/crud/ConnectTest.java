@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.sql.*;
 
@@ -18,6 +19,7 @@ public class ConnectTest {
     public static ResultSet resultSet = null;
     public static ResultSet resultSet1 = null;
     public static Connection connection = null;
+    SoftAssert softAssert = new SoftAssert();
 
     @BeforeClass
     public void setUp() {
@@ -43,17 +45,17 @@ public class ConnectTest {
 
     @Test
     public void insertH2TestCase() {
-        String query = "select * from ninth";
+        String query = "select * from ninth where rollno = 1";
         try {
             resultSet = statement.executeQuery(query);
             System.out.println("hey");
         } catch (Exception e) {
             System.out.println(""+e);
         }
-        String query1 = "select * from student";
+        String query1 = "select * from student where rollno = 1";
         try {
             resultSet1 = statement1.executeQuery(query1);
-            System.out.println("Hello");
+            System.out.println("passed");
         } catch (Exception e) {
             System.out.println(""+e);
         }
@@ -61,37 +63,48 @@ public class ConnectTest {
 
     @Test(dependsOnMethods = {"insertH2TestCase"})
     public void getData() {
-        int id=1,id1=1;
-        String add1;
-        String add ;
+
+        String nameH2,name,fnameH2,fname,add,addH2,dob,dobH2;
+        int id, idH2;
+        float englishH2,english,hindiH2,hindi,maths,mathsH2,science,scienceH2,socialH2,social,percentageH2,percentage;
         try {
             resultSet.next() ;
-            //  id = resultSet.getInt("rollno");
-            String name = resultSet.getString("fullname");
-            String fname = resultSet.getString("fathername");
-            add = resultSet.getString("address");
-            String dob = resultSet.getString("dob");
-            float english = resultSet.getFloat("english");
-            float hindi = resultSet.getFloat("hindi");
-            float maths = resultSet.getFloat("maths");
-            float science = resultSet.getFloat("science");
-            float social = resultSet.getFloat("social");
-            float percentage = resultSet.getFloat("percentage");
+            idH2 = resultSet.getInt("rollno");
+            nameH2 = resultSet.getString("fullname");
+             fnameH2 = resultSet.getString("fathername");
+            addH2 = resultSet.getString("address");
+             dobH2 = resultSet.getString("dob");
+             englishH2 = resultSet.getFloat("english");
+             hindiH2 = resultSet.getFloat("hindi");
+             mathsH2 = resultSet.getFloat("maths");
+             scienceH2 = resultSet.getFloat("science");
+             socialH2 = resultSet.getFloat("social");
+             percentageH2 = resultSet.getFloat("percentage");
 
             resultSet1.next();
-            //id1 = resultSet1.getInt("rollno");
-            String name1 = resultSet1.getString("fullname");
-            String fname1 = resultSet1.getString("fathername");
-            add1 = resultSet1.getString("address");
-            String dob1 = resultSet1.getString("dob");
-            float english1 = resultSet1.getFloat("english");
-            float hindi1 = resultSet1.getFloat("hindi");
-            float maths1 = resultSet1.getFloat("maths");
-            float science1 = resultSet1.getFloat("science");
-            float social1 = resultSet1.getFloat("social");
-            float percentage1 = resultSet1.getFloat("percentage");
+            id = resultSet1.getInt("rollno");
+            name = resultSet1.getString("fullname");
+            fname = resultSet1.getString("fathername");
+            add = resultSet1.getString("address");
+            dob = resultSet1.getString("dob");
+            english = resultSet1.getFloat("english");
+             hindi = resultSet1.getFloat("hindi");
+             maths = resultSet1.getFloat("maths");
+             science = resultSet1.getFloat("science");
+             social = resultSet1.getFloat("social");
+             percentage = resultSet1.getFloat("percentage");
 
-            Assert.assertEquals(add,add1);
+            softAssert.assertEquals(addH2,add,"failed");
+            softAssert.assertEquals(idH2,id,"failed");
+            softAssert.assertEquals(nameH2,name,"failed");
+            softAssert.assertEquals(fnameH2,fname);
+            softAssert.assertEquals(dobH2,dob);
+            softAssert.assertEquals(englishH2,english);
+            softAssert.assertEquals(hindiH2,hindi);
+            softAssert.assertEquals(mathsH2,maths);
+            softAssert.assertEquals(scienceH2,science);
+            softAssert.assertEquals(percentageH2,percentage);
+
             System.out.println("PASSED");
         } catch (Exception e) {
             System.out.println(""+e);
