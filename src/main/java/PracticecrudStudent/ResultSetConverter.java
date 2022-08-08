@@ -1,4 +1,4 @@
-package crudStudent;
+package PracticecrudStudent;
 
 public class ResultSetConverter {
 }

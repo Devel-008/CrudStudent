@@ -1,6 +1,5 @@
 package test.crud;
 
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -104,7 +103,7 @@ public class ConnectTest {
             softAssert.assertEquals(mathsH2,maths);
             softAssert.assertEquals(scienceH2,science);
             softAssert.assertEquals(percentageH2,percentage);
-
+           softAssert.assertAll();
             System.out.println("PASSED");
         } catch (Exception e) {
             System.out.println(""+e);

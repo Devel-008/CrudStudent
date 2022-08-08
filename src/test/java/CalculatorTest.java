@@ -1,4 +1,6 @@
 import static org.junit.Assert.assertEquals;
+
+import PracticecrudStudent.Calculator;
 import org.junit.Test;
 
 public class CalculatorTest {

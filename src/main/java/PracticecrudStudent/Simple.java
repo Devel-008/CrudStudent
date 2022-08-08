@@ -1,6 +1,4 @@
-
-import crudStudent.InsertStudent;
-import crudStudent.ReadStudent;
+package PracticecrudStudent;
 
 import java.sql.*;
 import java.util.Scanner;
