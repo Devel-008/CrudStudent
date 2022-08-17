@@ -19,6 +19,7 @@ public class FileRead {
     static float science;
     static float social;
     static float percentage;
+
     //File Insert
     public static void readData(Connection connect, Scanner sc) {
         System.out.println("Enter the Address of file:=");
@@ -26,8 +27,8 @@ public class FileRead {
 
         try (Scanner input = new Scanner(new File(filePath))) {
             while (input.hasNextLine()) {
-                 name = "";
-                 fathername = "";
+                name = "";
+                fathername = "";
                 address = "";
                 dob = "";
 
@@ -37,7 +38,7 @@ public class FileRead {
                 try (Scanner data = new Scanner(line)) {
 
                     if (data.hasNextInt()) {
-                         rollno = data.nextInt();
+                        rollno = data.nextInt();
                     }
                     while (!data.hasNextInt()) {
                         name += data.next();
@@ -89,7 +90,7 @@ public class FileRead {
             preparedStatement.setFloat(8, maths);
             preparedStatement.setFloat(9, science);
             preparedStatement.setFloat(10, social);
-            preparedStatement.setFloat(11,percentage);
+            preparedStatement.setFloat(11, percentage);
 
             preparedStatement.executeUpdate();
             System.out.println("Data Saved!!!");

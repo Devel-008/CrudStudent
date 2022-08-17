@@ -66,7 +66,7 @@ public class MainCrud {
                 }
                 case "s" -> {
                     try {
-                        read.select(connect);
+                        read.select(connect,sc);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
