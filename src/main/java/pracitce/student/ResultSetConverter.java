@@ -1,4 +1,4 @@
-package crud.student;
+package pracitce.student;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pracitce.student.Student;
@@ -39,7 +39,7 @@ public class ResultSetConverter {
             float percentage = rs.getFloat("percentage");
             Student student = new Student();
 
-            student.setRollno(rollno);
+            Student.setRollno(rollno);
             student.setName(name);
             student.setFathername(fatherName);
             student.setAddress(address);

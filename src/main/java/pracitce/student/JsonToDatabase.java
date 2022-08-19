@@ -1,4 +1,4 @@
-package crud.student;
+package pracitce.student;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,7 +19,7 @@ public class JsonToDatabase {
             JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("/Users/ishasethia/Desktop/student.json"));
             //Retrieving the array
             JSONArray jsonArray = (JSONArray) jsonObject.get("Student_data");
-            //Insert a row into the MyPlayers table
+            //Insert a row into the table
             PreparedStatement pstmt = connect.prepareStatement("INSERT INTO student values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             for(Object object : jsonArray) {
                 JSONObject record = (JSONObject) object;

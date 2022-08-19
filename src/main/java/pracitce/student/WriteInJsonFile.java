@@ -1,8 +1,9 @@
-package crud.student;
+package pracitce.student;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import crud.student.StudentCheck;
 import org.json.simple.JSONObject;
 public class WriteInJsonFile {
 
@@ -17,8 +18,10 @@ public class WriteInJsonFile {
             studentCheck.setFathername(sc.next());
             System.out.print("Enter Address:=");
             studentCheck.setAddress(sc.next());
+
             System.out.print("Enter DOB:=");
             studentCheck.setDob(sc.next());
+
             System.out.print("Enter English-Marks:=");
             studentCheck.setEnglish(sc.nextFloat());
             System.out.print("Enter Hindi-Marks:=");
@@ -35,17 +38,17 @@ public class WriteInJsonFile {
             float total = studentCheck.getEnglish()+ studentCheck.getHindi()+ studentCheck.getMaths()+ studentCheck.getScience()+ studentCheck.getSocial();
             studentCheck.setPercentage((total*100)/500);
             //Inserting key-value pairs into the json object
-            jsonObject.put("ID", studentCheck.getRollno());
-            jsonObject.put("Name", studentCheck.getName());
-            jsonObject.put("FatherName", studentCheck.getFathername());
-            jsonObject.put("Address", studentCheck.getAddress());
-            jsonObject.put("Date_Of_Birth", studentCheck.getDob());
-            jsonObject.put("English-Marks",studentCheck.getEnglish());
-            jsonObject.put("Hindi-Marks", studentCheck.getHindi());
-            jsonObject.put("Maths-Marks", studentCheck.getMaths());
-            jsonObject.put("Science-Marks", studentCheck.getScience());
-            jsonObject.put("Social-Marks", studentCheck.getSocial());
-            jsonObject.put("Percentage", studentCheck.getPercentage());
+            jsonObject.put("rollno", studentCheck.getRollno());
+            jsonObject.put("name", studentCheck.getName());
+            jsonObject.put("fathername", studentCheck.getFathername());
+            jsonObject.put("address", studentCheck.getAddress());
+            jsonObject.put("dob", studentCheck.getDob());
+            jsonObject.put("english",studentCheck.getEnglish());
+            jsonObject.put("hindi", studentCheck.getHindi());
+            jsonObject.put("maths", studentCheck.getMaths());
+            jsonObject.put("science", studentCheck.getScience());
+            jsonObject.put("social", studentCheck.getSocial());
+            jsonObject.put("percentage", studentCheck.getPercentage());
             try {
                 FileWriter file = new FileWriter("/Users/ishasethia/Desktop/java.json");
                 file.write(jsonObject.toJSONString());

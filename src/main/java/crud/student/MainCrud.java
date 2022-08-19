@@ -13,9 +13,8 @@ public class MainCrud {
         StudentCheck stu = new StudentCheck();
         ReadStudent read = new ReadStudent();
         DeleteStudent de = new DeleteStudent();
-        JsonToDatabase js = new JsonToDatabase();
+        FileReadAndWrite file = new FileReadAndWrite();
         Update up = new Update();
-        WriteInJsonFile write = new WriteInJsonFile();
         Scanner sc = new Scanner(System.in);
 
         String url = "jdbc:postgresql://localhost:5432/reportcard";
@@ -43,7 +42,7 @@ public class MainCrud {
             e.printStackTrace();
         }
         do {
-            System.out.println("1] Press i to INSERT 2] Press d to DELETE 3]Press s to READ \n4]Press u to UPDATE 5]Press f to insert data from any File you want in database \n6]Press j to insert data from JSON File you want 7} Press w to insert data in JSON file  \n7]Press any other key to exit");
+            System.out.println("1] Press i to INSERT 2] Press d to DELETE 3]Press s to READ \n4]Press u to UPDATE 5]Press f to insert data from any JSON-File you want in database \n6]Press j to insert data in JSON File you want \n7]Press any other key to exit");
             String c = sc.nextLine();
             switch (c) {
                 case "i" -> {
@@ -81,27 +80,19 @@ public class MainCrud {
                 }
                 case "f" -> {
                     try {
-                        FileRead.readData(connect, sc);
+                        file.readData(sc,connect);
                     } catch (Exception e) {
                         System.out.println("ERROR");
                     }
                 }
                 case "j" -> {
                     try {
-                        js.convertJson(connect,sc);
+                        file.writeData(sc,stu);
                     } catch (Exception e) {
                         System.out.println("ERROR");
-                    }
-                }
-                case "w"->{
-                    try{
-                        write.writeJson(sc,stu);
-                    }catch (Exception e){
-                        System.out.println(""+e);
-                    }
+                   }
                 }
                 default -> {
-
                     System.out.println("\nEnter Correct Option!!!!");
 
                     System.out.println("\nDo you want to continue:= Press any key or else Press n to exit!!");
