@@ -21,7 +21,8 @@ public class FileReadAndWrite {
         try {
             Object obj = parser.parse(new FileReader(filePath));
             JSONObject jsonObject = (JSONObject) obj;
-
+            StudentCheck studentCheck = new StudentCheck();
+            studentCheck.setRollno(Integer.parseInt(jsonObject.get("Id").toString()));
             int id = Integer.parseInt(jsonObject.get("Id").toString());
             String name = (String) jsonObject.get("Name");
             String fname = (String) jsonObject.get("FatherName");
@@ -35,7 +36,7 @@ public class FileReadAndWrite {
             float percentage = Float.parseFloat(jsonObject.get("Percentage").toString());
 
             PreparedStatement preparedStatement = connect.prepareStatement(query);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, studentCheck.getRollno());
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, fname);
             preparedStatement.setString(4, address);
@@ -115,7 +116,7 @@ public class FileReadAndWrite {
         }
         //Creating a json array
         try {
-            FileWriter file = new FileWriter("/Users/ishasethia/Desktop/java.json");
+            FileWriter file = new FileWriter("src/main/resources/java.json");
             file.write(jsonObject.toJSONString());
             System.out.println("Data Saved!!!");
             file.close();
