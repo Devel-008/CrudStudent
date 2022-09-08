@@ -11,9 +11,9 @@ public class ReadStudent {
         try {
             System.out.println("Press 1. to see all data \nPress 2. to see random data :=");
             int i = sc.nextInt();
-            if (i == 1) {
+            if (i == 2) {
                 randomSelect(connect, sc);
-            } else if (i == 2) {
+            } else if (i == 1) {
                 selectAll(connect);
             } else {
                 System.out.println("Incorrect choice");
@@ -22,6 +22,7 @@ public class ReadStudent {
 
         }catch (Exception e){
             System.out.println(""+e);
+            System.exit(0);
         }
 
     }
@@ -49,12 +50,14 @@ public class ReadStudent {
             }
             if (count <= 0) {
                 System.out.println("No data available");
+                System.exit(0);
             }
             rs.close();
             s1.close();
             connect.close();
         }catch (Exception e){
             System.out.println(""+e);
+            System.exit(0);
         }
     }
 
@@ -80,12 +83,14 @@ public class ReadStudent {
             }
             if (count <= 0) {
                 System.out.println("No data available");
+                System.exit(0);
             }
             rs.close();
             s1.close();
            connect.close();
         } catch (Exception e) {
             System.out.println("ERROR:=" + e);
+            System.exit(0);
         }
     }
 }

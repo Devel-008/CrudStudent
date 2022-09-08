@@ -93,7 +93,7 @@ public class MainCrud {
                    }
                 }
                 default -> {
-                    System.out.println("\nEnter Correct Option!!!!");
+                    //System.out.println("\nEnter Correct Option!!!!");
 
                     System.out.println("\nDo you want to continue:= Press any key or else Press n to exit!!");
                     String n = sc.nextLine();
